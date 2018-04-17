@@ -398,18 +398,18 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var defaultProps = {
   html: null,
-  position: 'top',
-  animation: 'shift',
+  position: "top",
+  animation: "shift",
   animateFill: true,
   arrow: false,
   delay: 0,
   hideDelay: 0,
-  trigger: 'mouseenter focus',
+  trigger: "mouseenter focus",
   duration: 375,
   hideDuration: 375,
   interactive: false,
   interactiveBorder: 2,
-  theme: 'dark',
+  theme: "dark",
   offset: 0,
   hideOnClick: true,
   multiple: false,
@@ -421,9 +421,9 @@ var defaultProps = {
   onHide: function onHide() {},
   onHidden: function onHidden() {},
   disabled: false,
-  arrowSize: 'regular',
-  size: 'regular',
-  className: '',
+  arrowSize: "regular",
+  size: "regular",
+  className: "",
   style: {},
   distance: 10,
   onRequestClose: function onRequestClose() {},
@@ -464,52 +464,52 @@ var Tooltip = function (_Component) {
   }
 
   _createClass(Tooltip, [{
-    key: 'componentDidMount',
+    key: "componentDidMount",
     value: function componentDidMount() {
-      if (typeof window === 'undefined' || typeof document === 'undefined') {
+      if (typeof window === "undefined" || typeof document === "undefined") {
         return;
       }
       this.initTippy();
     }
   }, {
-    key: 'componentWillUnmount',
+    key: "componentWillUnmount",
     value: function componentWillUnmount() {
-      if (typeof window === 'undefined' || typeof document === 'undefined') {
+      if (typeof window === "undefined" || typeof document === "undefined") {
         return;
       }
       this.destroyTippy();
     }
   }, {
-    key: 'componentDidUpdate',
+    key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
       var _this2 = this;
 
       // enable and disabled
-      if (typeof window === 'undefined' || typeof document === 'undefined') {
+      if (typeof window === "undefined" || typeof document === "undefined") {
         return;
       }
       if (this.props.disabled === false && prevProps.disabled === true) {
-        this.updateSettings('disabled', false);
+        this.updateSettings("disabled", false);
         this.destroyTippy();
         this.initTippy();
         return;
       }
 
       if (this.props.disabled === true && prevProps.disabled === false) {
-        this.updateSettings('disabled', true);
+        this.updateSettings("disabled", true);
         this.destroyTippy();
         return;
       }
 
       // open
       if (this.props.open === true && !prevProps.open) {
-        this.updateSettings('open', true);
+        this.updateSettings("open", true);
         setTimeout(function () {
           _this2.showTooltip();
         }, 0);
       }
       if (this.props.open === false && prevProps.open === true) {
-        this.updateSettings('open', false);
+        this.updateSettings("open", false);
         this.hideTooltip();
       }
 
@@ -529,9 +529,9 @@ var Tooltip = function (_Component) {
       });
     }
   }, {
-    key: '_showTooltip',
+    key: "_showTooltip",
     value: function _showTooltip() {
-      if (typeof window === 'undefined' || typeof document === 'undefined') {
+      if (typeof window === "undefined" || typeof document === "undefined") {
         return;
       }
       if (this.tippy) {
@@ -540,9 +540,9 @@ var Tooltip = function (_Component) {
       }
     }
   }, {
-    key: '_hideTooltip',
+    key: "_hideTooltip",
     value: function _hideTooltip() {
-      if (typeof window === 'undefined' || typeof document === 'undefined') {
+      if (typeof window === "undefined" || typeof document === "undefined") {
         return;
       }
       if (this.tippy) {
@@ -551,35 +551,35 @@ var Tooltip = function (_Component) {
       }
     }
   }, {
-    key: '_updateSettings',
+    key: "_updateSettings",
     value: function _updateSettings(name, value) {
-      if (typeof window === 'undefined' || typeof document === 'undefined') {
+      if (typeof window === "undefined" || typeof document === "undefined") {
         return;
       }
       if (this.tippy) {
         var popper = this.tippy.getPopperElement(this.tooltipDOM);
-        this.tippy.updateSettings(popper, name, value);
+        if (popper) this.tippy.updateSettings(popper, name, value);
       }
     }
   }, {
-    key: '_updateReactDom',
+    key: "_updateReactDom",
     value: function _updateReactDom() {
-      if (typeof window === 'undefined' || typeof document === 'undefined') {
+      if (typeof window === "undefined" || typeof document === "undefined") {
         return;
       }
       if (this.tippy) {
-        this.updateSettings('reactDOM', this.props.html);
+        this.updateSettings("reactDOM", this.props.html);
         var popper = this.tippy.getPopperElement(this.tooltipDOM);
-        var isVisible = popper.style.visibility === 'visible' || this.props.open;
+        var isVisible = popper.style.visibility === "visible" || this.props.open;
         if (isVisible) {
           this.tippy.updateForReact(popper, this.props.html);
         }
       }
     }
   }, {
-    key: '_updateTippy',
+    key: "_updateTippy",
     value: function _updateTippy() {
-      if (typeof window === 'undefined' || typeof document === 'undefined') {
+      if (typeof window === "undefined" || typeof document === "undefined") {
         return;
       }
       if (this.tippy) {
@@ -588,13 +588,13 @@ var Tooltip = function (_Component) {
       }
     }
   }, {
-    key: '_initTippy',
+    key: "_initTippy",
     value: function _initTippy() {
-      if (typeof window === 'undefined' || typeof document === 'undefined') {
+      if (typeof window === "undefined" || typeof document === "undefined") {
         return;
       }
       if (!this.props.disabled) {
-        this.tooltipDOM.setAttribute('title', this.props.title);
+        this.tooltipDOM.setAttribute("title", this.props.title);
         this.tippy = (0, _tippy2.default)(this.tooltipDOM, {
           disabled: this.props.disabled,
           position: this.props.position,
@@ -642,26 +642,26 @@ var Tooltip = function (_Component) {
       }
     }
   }, {
-    key: '_destroyTippy',
+    key: "_destroyTippy",
     value: function _destroyTippy() {
-      if (typeof window === 'undefined' || typeof document === 'undefined') {
+      if (typeof window === "undefined" || typeof document === "undefined") {
         return;
       }
       if (this.tippy) {
         var popper = this.tippy.getPopperElement(this.tooltipDOM);
-        this.updateSettings('open', false);
+        this.updateSettings("open", false);
         this.tippy.hide(popper, 0);
         this.tippy.destroy(popper);
         this.tippy = null;
       }
     }
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
       var _this3 = this;
 
       return _react2.default.createElement(
-        'div',
+        "div",
         {
           ref: function ref(tooltip) {
             _this3.tooltipDOM = tooltip;
@@ -670,7 +670,7 @@ var Tooltip = function (_Component) {
           className: this.props.className,
           tabIndex: this.props.tabIndex,
           style: _extends({
-            display: 'inline'
+            display: "inline"
           }, this.props.style)
         },
         this.props.children
@@ -2043,9 +2043,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
-* @param {String|Element|Element[]} selector
-* @param {Object} settings (optional) - the object of settings to be applied to the instance
-*/
+ * @param {String|Element|Element[]} selector
+ * @param {Object} settings (optional) - the object of settings to be applied to the instance
+ */
 var Tippy = function () {
   function Tippy(selector) {
     var settings = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -2066,7 +2066,7 @@ var Tippy = function () {
     this.settings = _extends({}, _globals.Defaults, settings);
 
     if (settings.show || settings.shown || settings.hide || settings.hidden) {
-      console.warn('Callbacks without the `on` prefix are deprecated (with the exception of `wait`).' + ' Use onShow, onShown, onHide, and onHidden instead.');
+      console.warn("Callbacks without the `on` prefix are deprecated (with the exception of `wait`)." + " Use onShow, onShown, onHide, and onHidden instead.");
     }
 
     this.callbacks = {
@@ -2082,50 +2082,50 @@ var Tippy = function () {
   }
 
   /**
-  * Returns the reference element's popper element
-  * @param {Element} el
-  * @return {Element}
-  */
+   * Returns the reference element's popper element
+   * @param {Element} el
+   * @return {Element}
+   */
 
 
   _createClass(Tippy, [{
-    key: 'getPopperElement',
+    key: "getPopperElement",
     value: function getPopperElement(el) {
       try {
         return (0, _find2.default)(this.store, function (data) {
           return data.el === el;
         }).popper;
       } catch (e) {
-        console.error('[getPopperElement]: Element passed as the argument does not exist in the instance');
+        console.error("[getPopperElement]: Element passed as the argument does not exist in the instance");
       }
     }
 
     /**
-    * Returns a popper's reference element
-    * @param {Element} popper
-    * @return {Element}
-    */
+     * Returns a popper's reference element
+     * @param {Element} popper
+     * @return {Element}
+     */
 
   }, {
-    key: 'getReferenceElement',
+    key: "getReferenceElement",
     value: function getReferenceElement(popper) {
       try {
         return (0, _find2.default)(this.store, function (data) {
           return data.popper === popper;
         }).el;
       } catch (e) {
-        console.error('[getReferenceElement]: Popper passed as the argument does not exist in the instance');
+        console.error("[getReferenceElement]: Popper passed as the argument does not exist in the instance");
       }
     }
 
     /**
-    * Returns the reference data object from either the reference element or popper element
-    * @param {Element} x (reference element or popper)
-    * @return {Object}
-    */
+     * Returns the reference data object from either the reference element or popper element
+     * @param {Element} x (reference element or popper)
+     * @return {Object}
+     */
 
   }, {
-    key: 'getReferenceData',
+    key: "getReferenceData",
     value: function getReferenceData(x) {
       return (0, _find2.default)(this.store, function (data) {
         return data.el === x || data.popper === x;
@@ -2133,35 +2133,37 @@ var Tippy = function () {
     }
 
     /**
-    * Update settings
-    * @param {DOMElement} - popper
-    * @param {string} - name
-    * @param {string} - value
-    */
+     * Update settings
+     * @param {DOMElement} - popper
+     * @param {string} - name
+     * @param {string} - value
+     */
 
   }, {
-    key: 'updateSettings',
+    key: "updateSettings",
     value: function updateSettings(popper, name, value) {
       var data = (0, _find2.default)(this.store, function (data) {
         return data.popper === popper;
       });
+      if (!data) return;
       var newSettings = _extends({}, data.settings, _defineProperty({}, name, value));
       data.settings = newSettings;
     }
-  }, {
-    key: 'updateForReact',
-
 
     /**
-    * Update for React
-    * @param {DOMElement} - popper
-    * @param {ReactElement} - content
-    */
+     * Update for React
+     * @param {DOMElement} - popper
+     * @param {ReactElement} - content
+     */
+
+  }, {
+    key: "updateForReact",
     value: function updateForReact(popper, updatedContent) {
       var tooltipContent = popper.querySelector(_globals.Selectors.CONTENT);
       var data = (0, _find2.default)(this.store, function (data) {
         return data.popper === popper;
       });
+      if (!data) return;
 
       var _data$settings = data.settings,
           useContext = _data$settings.useContext,
@@ -2174,13 +2176,13 @@ var Tippy = function () {
       }
     }
     /**
-    * Shows a popper
-    * @param {Element} popper
-    * @param {Number} customDuration (optional)
-    */
+     * Shows a popper
+     * @param {Element} popper
+     * @param {Number} customDuration (optional)
+     */
 
   }, {
-    key: 'show',
+    key: "show",
     value: function show(popper, customDuration) {
       var _this = this;
 
@@ -2189,6 +2191,7 @@ var Tippy = function () {
       var data = (0, _find2.default)(this.store, function (data) {
         return data.popper === popper;
       });
+      if (!data) return;
 
       var _getInnerElements = (0, _getInnerElements5.default)(popper),
           tooltip = _getInnerElements.tooltip,
@@ -2224,7 +2227,7 @@ var Tippy = function () {
 
 
       if (dynamicTitle) {
-        var title = el.getAttribute('title');
+        var title = el.getAttribute("title");
         if (title) {
           content.innerHTML = title;
           (0, _removeTitle2.default)(el);
@@ -2238,8 +2241,8 @@ var Tippy = function () {
 
       (0, _mountPopper2.default)(data);
 
-      popper.style.visibility = 'visible';
-      popper.setAttribute('aria-hidden', 'false');
+      popper.style.visibility = "visible";
+      popper.setAttribute("aria-hidden", "false");
 
       // Wait for popper's position to update
       (0, _defer2.default)(function () {
@@ -2256,7 +2259,7 @@ var Tippy = function () {
         if (circle) content.style.opacity = 1;
 
         // Interactive tooltips receive a class of 'active'
-        interactive && el.classList.add('active');
+        interactive && el.classList.add("active");
 
         // Update popper's position on every animation frame
         sticky && (0, _makeSticky2.default)(data);
@@ -2265,9 +2268,9 @@ var Tippy = function () {
         (0, _triggerReflow2.default)(tooltip, circle);
 
         (0, _modifyClassList2.default)([tooltip, circle], function (list) {
-          list.contains('tippy-notransition') && list.remove('tippy-notransition');
-          list.remove('leave');
-          list.add('enter');
+          list.contains("tippy-notransition") && list.remove("tippy-notransition");
+          list.remove("leave");
+          list.add("enter");
         });
 
         // Wait for transitions to complete
@@ -2277,7 +2280,7 @@ var Tippy = function () {
           // Focus interactive tooltips only
           interactive && popper.focus();
           // Remove transitions from tooltip
-          tooltip.classList.add('tippy-notransition');
+          tooltip.classList.add("tippy-notransition");
           // Prevents shown() from firing more than once from early transition cancellations
           data._onShownFired = true;
 
@@ -2287,13 +2290,13 @@ var Tippy = function () {
     }
 
     /**
-    * Hides a popper
-    * @param {Element} popper
-    * @param {Number} customDuration (optional)
-    */
+     * Hides a popper
+     * @param {Element} popper
+     * @param {Number} customDuration (optional)
+     */
 
   }, {
-    key: 'hide',
+    key: "hide",
     value: function hide(popper, customDuration) {
       var _this2 = this;
 
@@ -2304,6 +2307,7 @@ var Tippy = function () {
       var data = (0, _find2.default)(this.store, function (data) {
         return data.popper === popper;
       });
+      if (!data) return;
 
       var _getInnerElements2 = (0, _getInnerElements5.default)(popper),
           tooltip = _getInnerElements2.tooltip,
@@ -2335,25 +2339,25 @@ var Tippy = function () {
       var _duration = customDuration !== undefined ? customDuration : Array.isArray(duration) ? duration[1] : duration;
 
       data._onShownFired = false;
-      interactive && el.classList.remove('active');
+      interactive && el.classList.remove("active");
 
-      popper.style.visibility = 'hidden';
-      popper.setAttribute('aria-hidden', 'true');
+      popper.style.visibility = "hidden";
+      popper.setAttribute("aria-hidden", "true");
 
       (0, _applyTransitionDuration2.default)([tooltip, circle, circle ? content : null], _duration);
 
       if (circle) content.style.opacity = 0;
 
       (0, _modifyClassList2.default)([tooltip, circle], function (list) {
-        list.contains('tippy-tooltip') && list.remove('tippy-notransition');
-        list.remove('enter');
-        list.add('leave');
+        list.contains("tippy-tooltip") && list.remove("tippy-notransition");
+        list.remove("enter");
+        list.add("leave");
       });
 
       // Re-focus click-triggered html elements
       // and the tooltipped element IS in the viewport (otherwise it causes unsightly scrolling
       // if the tooltip is closed and the element isn't in the viewport anymore)
-      if (html && trigger.indexOf('click') !== -1 && (0, _elementIsInViewport2.default)(el)) {
+      if (html && trigger.indexOf("click") !== -1 && (0, _elementIsInViewport2.default)(el)) {
         el.focus();
       }
 
@@ -2363,9 +2367,9 @@ var Tippy = function () {
         // run the hidden callback, we need to check the computed opacity style.
         // This prevents glitchy behavior of the transition when quickly showing
         // and hiding a tooltip.
-        if ((0, _isVisible2.default)(popper) || !appendTo.contains(popper) || getComputedStyle(tooltip).opacity === '1') return;
+        if ((0, _isVisible2.default)(popper) || !appendTo.contains(popper) || getComputedStyle(tooltip).opacity === "1") return;
 
-        el.removeEventListener('mousemove', _followCursorHandler2.default);
+        el.removeEventListener("mousemove", _followCursorHandler2.default);
         data.popperInstance.disableEventListeners();
         appendTo.removeChild(popper);
 
@@ -2379,18 +2383,19 @@ var Tippy = function () {
     }
 
     /**
-    * Updates a popper with new content
-    * @param {Element} popper
-    */
+     * Updates a popper with new content
+     * @param {Element} popper
+     */
 
   }, {
-    key: 'update',
+    key: "update",
     value: function update(popper) {
       if (this.state.destroyed) return;
 
       var data = (0, _find2.default)(this.store, function (data) {
         return data.popper === popper;
       });
+      if (!data) return;
 
       var _getInnerElements3 = (0, _getInnerElements5.default)(popper),
           content = _getInnerElements3.content;
@@ -2400,23 +2405,23 @@ var Tippy = function () {
 
 
       if (html instanceof Element) {
-        console.warn('Aborted: update() should not be used if `html` is a DOM element');
+        console.warn("Aborted: update() should not be used if `html` is a DOM element");
         return;
       }
 
-      content.innerHTML = html ? document.getElementById(html.replace('#', '')).innerHTML : el.getAttribute('title') || el.getAttribute('data-original-title');
+      content.innerHTML = html ? document.getElementById(html.replace("#", "")).innerHTML : el.getAttribute("title") || el.getAttribute("data-original-title");
 
       if (!html) (0, _removeTitle2.default)(el);
     }
 
     /**
-    * Destroys a popper
-    * @param {Element} popper
-    * @param {Boolean} _isLast - private param used by destroyAll to optimize
-    */
+     * Destroys a popper
+     * @param {Element} popper
+     * @param {Boolean} _isLast - private param used by destroyAll to optimize
+     */
 
   }, {
-    key: 'destroy',
+    key: "destroy",
     value: function destroy(popper, _isLast) {
       var _this3 = this;
 
@@ -2425,6 +2430,7 @@ var Tippy = function () {
       var data = (0, _find2.default)(this.store, function (data) {
         return data.popper === popper;
       });
+      if (!data) return;
 
       var el = data.el,
           popperInstance = data.popperInstance,
@@ -2443,11 +2449,11 @@ var Tippy = function () {
       });
 
       // Restore original title
-      el.setAttribute('title', el.getAttribute('data-original-title'));
+      el.setAttribute("title", el.getAttribute("data-original-title"));
 
-      el.removeAttribute('data-original-title');
-      el.removeAttribute('data-tooltipped');
-      el.removeAttribute('aria-describedby');
+      el.removeAttribute("data-original-title");
+      el.removeAttribute("data-tooltipped");
+      el.removeAttribute("aria-describedby");
 
       popperInstance && popperInstance.destroy();
       _mutationObserver && _mutationObserver.disconnect();
@@ -2466,11 +2472,11 @@ var Tippy = function () {
     }
 
     /**
-    * Destroys all tooltips created by the instance
-    */
+     * Destroys all tooltips created by the instance
+     */
 
   }, {
-    key: 'destroyAll',
+    key: "destroyAll",
     value: function destroyAll() {
       var _this4 = this;
 
