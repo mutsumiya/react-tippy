@@ -1,20 +1,20 @@
-import React, { Component } from "react";
-import tippy from "./js/tippy";
+import React, { Component } from 'react'
+import tippy from './js/tippy'
 
 const defaultProps = {
   html: null,
-  position: "top",
-  animation: "shift",
+  position: 'top',
+  animation: 'shift',
   animateFill: true,
   arrow: false,
   delay: 0,
   hideDelay: 0,
-  trigger: "mouseenter focus",
+  trigger: 'mouseenter focus',
   duration: 375,
   hideDuration: 375,
   interactive: false,
   interactiveBorder: 2,
-  theme: "dark",
+  theme: 'dark',
   offset: 0,
   hideOnClick: true,
   multiple: false,
@@ -26,9 +26,9 @@ const defaultProps = {
   onHide: () => {},
   onHidden: () => {},
   disabled: false,
-  arrowSize: "regular",
-  size: "regular",
-  className: "",
+  arrowSize: 'regular',
+  size: 'regular',
+  className: '',
   style: {},
   distance: 10,
   onRequestClose: () => {},
@@ -36,153 +36,152 @@ const defaultProps = {
   stickyDuration: 200,
   touchHold: false,
   unmountHTMLWhenHide: false
-};
+}
 
-const propKeys = Object.keys(defaultProps);
+const propKeys = Object.keys(defaultProps)
 
 const detectPropsChanged = (props, prevProps) => {
-  const result = [];
+  const result = []
   propKeys.forEach(key => {
     if (props[key] !== prevProps[key]) {
-      result.push(key);
+      result.push(key)
     }
-  });
-  return result;
-};
+  })
+  return result
+}
 
 class Tooltip extends Component {
   constructor(props) {
-    super(props);
-    this.initTippy = this._initTippy.bind(this);
-    this.destroyTippy = this._destroyTippy.bind(this);
-    this.updateTippy = this._updateTippy.bind(this);
-    this.updateReactDom = this._updateReactDom.bind(this);
-    this.showTooltip = this._showTooltip.bind(this);
-    this.hideTooltip = this._hideTooltip.bind(this);
-    this.updateSettings = this._updateSettings.bind(this);
+    super(props)
+    this.initTippy = this._initTippy.bind(this)
+    this.destroyTippy = this._destroyTippy.bind(this)
+    this.updateTippy = this._updateTippy.bind(this)
+    this.updateReactDom = this._updateReactDom.bind(this)
+    this.showTooltip = this._showTooltip.bind(this)
+    this.hideTooltip = this._hideTooltip.bind(this)
+    this.updateSettings = this._updateSettings.bind(this)
   }
 
   componentDidMount() {
-    if (typeof window === "undefined" || typeof document === "undefined") {
-      return;
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      return
     }
-    this.initTippy();
+    this.initTippy()
   }
 
   componentWillUnmount() {
-    if (typeof window === "undefined" || typeof document === "undefined") {
-      return;
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      return
     }
-    this.destroyTippy();
+    this.destroyTippy()
   }
 
   componentDidUpdate(prevProps) {
     // enable and disabled
-    if (typeof window === "undefined" || typeof document === "undefined") {
-      return;
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      return
     }
     if (this.props.disabled === false && prevProps.disabled === true) {
-      this.updateSettings("disabled", false);
-      this.destroyTippy();
-      this.initTippy();
-      return;
+      this.updateSettings('disabled', false)
+      this.destroyTippy()
+      this.initTippy()
+      return
     }
 
     if (this.props.disabled === true && prevProps.disabled === false) {
-      this.updateSettings("disabled", true);
-      this.destroyTippy();
-      return;
+      this.updateSettings('disabled', true)
+      this.destroyTippy()
+      return
     }
 
     // open
     if (this.props.open === true && !prevProps.open) {
-      this.updateSettings("open", true);
+      this.updateSettings('open', true)
       setTimeout(() => {
-        this.showTooltip();
-      }, 0);
+        this.showTooltip()
+      }, 0)
     }
     if (this.props.open === false && prevProps.open === true) {
-      this.updateSettings("open", false);
-      this.hideTooltip();
+      this.updateSettings('open', false)
+      this.hideTooltip()
     }
 
     if (this.props.html !== prevProps.html) {
-      this.updateReactDom();
+      this.updateReactDom()
     }
 
     // Update content
     if (this.props.title !== prevProps.title) {
-      this.updateTippy();
+      this.updateTippy()
     }
 
     // update otherProps
-    const propChanges = detectPropsChanged(this.props, prevProps);
+    const propChanges = detectPropsChanged(this.props, prevProps)
     propChanges.forEach(key => {
-      this.updateSettings(key, this.props[key]);
-    });
+      this.updateSettings(key, this.props[key])
+    })
   }
 
   _showTooltip() {
-    if (typeof window === "undefined" || typeof document === "undefined") {
-      return;
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      return
     }
     if (this.tippy) {
-      const popper = this.tippy.getPopperElement(this.tooltipDOM);
-      this.tippy.show(popper, this.props.duration);
+      const popper = this.tippy.getPopperElement(this.tooltipDOM)
+      this.tippy.show(popper, this.props.duration)
     }
   }
 
   _hideTooltip() {
-    if (typeof window === "undefined" || typeof document === "undefined") {
-      return;
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      return
     }
     if (this.tippy) {
-      const popper = this.tippy.getPopperElement(this.tooltipDOM);
-      this.tippy.hide(popper, this.props.hideDuration);
+      const popper = this.tippy.getPopperElement(this.tooltipDOM)
+      this.tippy.hide(popper, this.props.hideDuration)
     }
   }
 
   _updateSettings(name, value) {
-    if (typeof window === "undefined" || typeof document === "undefined") {
-      return;
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      return
     }
     if (this.tippy) {
-      const popper = this.tippy.getPopperElement(this.tooltipDOM);
-      if (popper) this.tippy.updateSettings(popper, name, value);
+      const popper = this.tippy.getPopperElement(this.tooltipDOM)
+      if (popper) this.tippy.updateSettings(popper, name, value)
     }
   }
 
   _updateReactDom() {
-    if (typeof window === "undefined" || typeof document === "undefined") {
-      return;
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      return
     }
     if (this.tippy) {
-      this.updateSettings("reactDOM", this.props.html);
-      const popper = this.tippy.getPopperElement(this.tooltipDOM);
-      const isVisible =
-        popper.style.visibility === "visible" || this.props.open;
+      this.updateSettings('reactDOM', this.props.html)
+      const popper = this.tippy.getPopperElement(this.tooltipDOM)
+      const isVisible = popper.style.visibility === 'visible' || this.props.open
       if (isVisible) {
-        this.tippy.updateForReact(popper, this.props.html);
+        this.tippy.updateForReact(popper, this.props.html)
       }
     }
   }
 
   _updateTippy() {
-    if (typeof window === "undefined" || typeof document === "undefined") {
-      return;
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      return
     }
     if (this.tippy) {
-      const popper = this.tippy.getPopperElement(this.tooltipDOM);
-      this.tippy.update(popper);
+      const popper = this.tippy.getPopperElement(this.tooltipDOM)
+      this.tippy.update(popper)
     }
   }
 
   _initTippy() {
-    if (typeof window === "undefined" || typeof document === "undefined") {
-      return;
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      return
     }
     if (!this.props.disabled) {
-      this.tooltipDOM.setAttribute("title", this.props.title);
+      this.tooltipDOM.setAttribute('title', this.props.title)
       this.tippy = tippy(this.tooltipDOM, {
         disabled: this.props.disabled,
         position: this.props.position,
@@ -221,25 +220,25 @@ class Tooltip extends Component {
         reactInstance: this.props.useContext ? this : undefined,
         performance: true,
         html: this.props.rawTemplate ? this.props.rawTemplate : undefined
-      });
+      })
       if (this.props.open) {
-        this.showTooltip();
+        this.showTooltip()
       }
     } else {
-      this.tippy = null;
+      this.tippy = null
     }
   }
 
   _destroyTippy() {
-    if (typeof window === "undefined" || typeof document === "undefined") {
-      return;
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      return
     }
     if (this.tippy) {
-      const popper = this.tippy.getPopperElement(this.tooltipDOM);
-      this.updateSettings("open", false);
-      this.tippy.hide(popper, 0);
-      this.tippy.destroy(popper);
-      this.tippy = null;
+      const popper = this.tippy.getPopperElement(this.tooltipDOM, false)
+      this.updateSettings('open', false)
+      this.tippy.hide(popper, 0)
+      this.tippy.destroy(popper)
+      this.tippy = null
     }
   }
 
@@ -247,22 +246,22 @@ class Tooltip extends Component {
     return (
       <div
         ref={tooltip => {
-          this.tooltipDOM = tooltip;
+          this.tooltipDOM = tooltip
         }}
         title={this.props.title}
         className={this.props.className}
         tabIndex={this.props.tabIndex}
         style={{
-          display: "inline",
+          display: 'inline',
           ...this.props.style
         }}
       >
         {this.props.children}
       </div>
-    );
+    )
   }
 }
 
-Tooltip.defaultProps = defaultProps;
+Tooltip.defaultProps = defaultProps
 
-export default Tooltip;
+export default Tooltip
