@@ -72,10 +72,12 @@ class Tippy {
     try {
       return find(this.store, data => data.el === el).popper
     } catch (e) {
-      if (showErr)
+      if (showErr) {
         console.error(
           '[getPopperElement]: Element passed as the argument does not exist in the instance'
         )
+      }
+      return null
     }
   }
 

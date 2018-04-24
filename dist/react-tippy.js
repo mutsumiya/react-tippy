@@ -649,9 +649,11 @@ var Tooltip = function (_Component) {
       }
       if (this.tippy) {
         var popper = this.tippy.getPopperElement(this.tooltipDOM, false);
-        this.updateSettings('open', false);
-        this.tippy.hide(popper, 0);
-        this.tippy.destroy(popper);
+        if (popper) {
+          this.updateSettings('open', false);
+          this.tippy.hide(popper, 0);
+          this.tippy.destroy(popper);
+        }
         this.tippy = null;
       }
     }
@@ -2098,7 +2100,10 @@ var Tippy = function () {
           return data.el === el;
         }).popper;
       } catch (e) {
-        if (showErr) console.error('[getPopperElement]: Element passed as the argument does not exist in the instance');
+        if (showErr) {
+          console.error('[getPopperElement]: Element passed as the argument does not exist in the instance');
+        }
+        return null;
       }
     }
 
